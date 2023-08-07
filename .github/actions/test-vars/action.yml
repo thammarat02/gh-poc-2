@@ -1,0 +1,11 @@
+name: Variable Replacement
+
+description: Replace placeholder variables with actual ones from GitHub environment variables
+
+runs:
+  using: composite
+  steps:
+    - name: Replace placeholder variables with actual ones
+      shell: bash
+      run: |
+        echo "vars.ENV from custom action: $ENV"

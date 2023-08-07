@@ -1,0 +1,16 @@
+name: Test Push Develop
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - develop
+
+jobs:
+  test-push-main:
+    name: Test Push Develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: show git sha
+        run: |
+          echo "git sha: ${{ github.sha }}"

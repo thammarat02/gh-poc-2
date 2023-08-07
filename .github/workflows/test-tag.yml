@@ -1,0 +1,16 @@
+name: Test Tag
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  test-tag:
+    name: Test Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: show git sha
+        run: |
+          echo "git sha: ${{ github.sha }}"
+          echo "ref name: ${{ github.ref_name }}"

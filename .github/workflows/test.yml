@@ -1,0 +1,70 @@
+name: Test Environment Variable
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment to be deployed
+        default: qa
+        options:
+          - qa
+          - preprod
+          - prod
+      development_version:
+        description: Development version bundle
+        required: true
+      release_version:
+        description: Release version bundle
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  create-realease-bundle:
+    name: Create release bundle
+    environment: ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: set env variable
+        run: |
+          echo "GREETING1=${{ vars.ENV }}1" >> $GITHUB_ENV
+          echo "GREETING2=${{ vars.ENV }}2" >> $GITHUB_ENV
+      - name: print input variables
+        shell: bash
+        run: |
+          echo "environment: ${{ github.event.inputs.environment }}"
+          echo "development_version: ${{ github.event.inputs.development_version }}"
+          echo "release_version: ${{ github.event.inputs.release_version }}"
+          echo "env environment variable: ${{ vars.ENV }}"
+      - name: print env variables
+        shell: bash
+        run: |
+          echo "GREETING: $GREETING1"
+          echo "GREETING: $GREETING2"
+      - name: Replace placeholder variables with actual ones
+        uses: ./.github/actions/test-vars
+        env:
+          ENV: ${{ vars.ENV }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Sts GetCallerIdentity
+        shell: bash
+        run: |
+          aws sts get-caller-identity
+      - name: list s3
+        shell: bash
+        run: |
+          aws s3 ls
+      - name: test variable override
+        shell: bash
+        run: |
+          echo "${{ vars.HELLO}}"

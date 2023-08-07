@@ -1,0 +1,33 @@
+name: merge pr to main
+on:
+  workflow_dispatch:
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - main
+
+jobs:
+  merge-pr-to-main:
+    name: merge pr to main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: show git sha
+        shell: bash
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+          head_ref=${{ github.head_ref }}
+
+          tag="${head_ref:8:${#head_ref}}"
+
+          git tag -a bundle-$tag -m "create tag bundle-$tag"
+          git push origin bundle-$tag
+
+          git tag -a $tag -m "create tag $tag"
+          git push origin $tag

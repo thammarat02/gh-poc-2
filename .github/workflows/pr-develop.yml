@@ -1,0 +1,26 @@
+name: merge pr to develop
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+
+jobs:
+  merge-pr-to-develop:
+    if: github.event.pull_request.merged == true
+    name: merge pr to develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: show git sha
+        shell: bash
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+          tag="bundle-${{ github.sha }}"
+
+          git tag -a $tag -m "create tag $tag"
+          git push origin $tag

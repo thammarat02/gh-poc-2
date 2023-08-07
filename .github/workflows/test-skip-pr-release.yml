@@ -1,0 +1,17 @@
+name: merge pr to master
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  merge-pr-to-master:
+    if: startsWith(github.head_ref, 'release/')
+    name: merge pr to master
+    runs-on: ubuntu-latest
+    steps:
+      - name: display message
+        shell: bash
+        run: |
+          echo "merge from release/* to master"

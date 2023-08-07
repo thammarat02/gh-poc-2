@@ -1,0 +1,17 @@
+name: 'Production deployment'
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  test-prod:
+    name: Test Prod
+    # if: !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - name: show git sha
+        run: |
+          echo "this is release event"
+          echo "git sha: ${{ github.sha }}"
+          echo "ref name: ${{ github.ref_name }}"

@@ -1,0 +1,28 @@
+name: Push release
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - release/*
+
+jobs:
+  push-release:
+    name: Push release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: show git sha
+        shell: bash
+        run: |
+          echo "git sha: ${{ github.sha }}"
+          echo "ref name: ${{ github.ref_name }}"
+          echo "second last commit: ${{ github.event.before }}"
+          # ref_name=${{ github.ref_name }}
+          # tag="${ref_name:8:${#ref_name}}"
+          # which git
+          # git config --global user.email "you@example.com"
+          # git config --global user.name "Your Name"
+          # git tag -a $tag -m "create tag $tag"
+          # git push origin $tag
