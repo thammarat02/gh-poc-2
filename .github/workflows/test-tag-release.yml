@@ -1,0 +1,22 @@
+name: Test Tag Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version you want to release.'
+        required: true
+
+jobs:
+  test-tag-release:
+    name: Test Tag Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create tag and release
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: '${{ github.event.inputs.version }}'
+          prerelease: false
+          draft: false
+          title: '${{ github.event.inputs.version }}'
