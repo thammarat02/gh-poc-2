@@ -16,7 +16,7 @@ jobs:
         shell: bash
         run: |
           echo "deploying ..."
-          run: echo "api-key=${{ secrets.api-key }}" >> "$GITHUB_OUTPUT"
+          echo "api-key=${{ secrets.api-key }}" >> "$GITHUB_OUTPUT"
 
   purge-cache:
     name: Purge Cache
