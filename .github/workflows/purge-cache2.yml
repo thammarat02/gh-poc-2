@@ -4,6 +4,9 @@ on:
       environment:
         required: true
         type: string
+    secrets:
+      api-key:
+        required: true
 
 jobs:
   upload-to-s3-public-bucket:
