@@ -14,6 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
+      - name: print
+        shell: bash
+        run: |
+          echo "api-key=${{ secrets.api-key }}}}"
+          
       - name: Purge cache
         shell: bash
         run: |
