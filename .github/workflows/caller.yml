@@ -22,9 +22,19 @@ jobs:
           echo "API_KEY=${{ secrets.API_KEY }}"
           echo "api_key=${{ secrets.API_KEY }}" >> "$GITHUB_OUTPUT"
 
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    needs: cloudflare-purge-cache
+    steps:
+      - name: test
+        shell: bash
+        run: |
+          echo "api_key=${{ needs.cloudflare-purge-cache.outputs.api_key }}"
+
   purge-cache:
     name: Purge Cache
-    needs: cloudflare-purge-cache
+    needs: test
     uses: ./.github/workflows/purge-cache2.yml
     with:
       environment: dev
