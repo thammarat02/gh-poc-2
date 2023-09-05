@@ -20,6 +20,7 @@ jobs:
         run: |
           echo "deploying ..."
           echo "API_KEY=${{ secrets.api_key }}"
+          echo $API_KEY
           echo "api_key=${{ secrets.api_key }}" >> "$GITHUB_OUTPUT"
 
   test:
