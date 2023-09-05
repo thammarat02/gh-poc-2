@@ -19,4 +19,4 @@ jobs:
     needs: cloudflare-purge-cache
     uses: ./.github/workflows/purge-cache2.yml
     with:
-      environment: qa
+      environment: dev
