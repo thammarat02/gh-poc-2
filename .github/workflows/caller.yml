@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: |
           echo "deploying ..."
-          echo "api-key=${{ secrets.api_key }}" >> "$GITHUB_OUTPUT"
+          echo "api-key=${{ secrets.API_KEY }}" >> "$GITHUB_OUTPUT"
 
   purge-cache:
     name: Purge Cache
