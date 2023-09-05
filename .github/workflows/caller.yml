@@ -2,12 +2,15 @@ name: POC Cloudflare Purge Cache
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        required: true
 
 jobs:
   cloudflare-purge-cache:
     name: Cloudflare Purge Cache
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ inputs.environment }}
     outputs:
       api-key: ${{ steps.deploy.outputs.api-key }}
     steps:
@@ -16,7 +19,7 @@ jobs:
         shell: bash
         run: |
           echo "deploying ..."
-          echo "api-key=${{ secrets.api-key }}" >> "$GITHUB_OUTPUT"
+          echo "api-key=${{ secrets.api_key }}" >> "$GITHUB_OUTPUT"
 
   purge-cache:
     name: Purge Cache
