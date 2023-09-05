@@ -5,7 +5,7 @@ on:
         required: true
         type: string
     secrets:
-      api-key:
+      api_key:
         required: true
 
 jobs:
@@ -17,13 +17,13 @@ jobs:
       - name: print
         shell: bash
         run: |
-          echo "api-key=${{ secrets.api-key }}}}"
-          
+          echo "api-key=${{ secrets.api_key }}}}"
+
       - name: Purge cache
         shell: bash
         run: |
           curl --location 'https://dev-cdn.nocnoc-internal.com/cache-purger' \
-          --header 'x-api-key: ${{ secrets.api-key }}' \
+          --header 'x-api-key: ${{ secrets.api_key }}' \
           --header 'Content-Type: application/json' \
           --data '{
               "pathPrefixList": ["mock/test-api/"]
