@@ -20,3 +20,4 @@ jobs:
     uses: ./.github/workflows/purge-cache2.yml
     with:
       environment: dev
+    secrets: inherit
