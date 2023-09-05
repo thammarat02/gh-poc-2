@@ -29,8 +29,10 @@ jobs:
     steps:
       - name: test
         shell: bash
+        env:
+          API_KEY: ${{needs.cloudflare-purge-cache.outputs.api_key }}
         run: |
-          echo "api_key=${{ needs.cloudflare-purge-cache.outputs.api_key }}"
+          echo "api_key=$API_KEY"
 
   purge-cache:
     name: Purge Cache
