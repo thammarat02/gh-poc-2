@@ -7,38 +7,10 @@ on:
         required: true
 
 jobs:
-  cloudflare-purge-cache:
-    name: Cloudflare Purge Cache
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    outputs:
-      test_key: ${{ steps.deploy.outputs.test_key }}
-    steps:
-      - id: deploy
-        name: Deploy
-        shell: bash
-        run: |
-          echo "deploying ..."
-          echo "TEST_KEY=${{ vars.TEST_KEY }}"
-          echo "test_key=${{ vars.TEST_KEY }}" >> "$GITHUB_OUTPUT"
-
-  test:
-    name: test
-    runs-on: ubuntu-latest
-    needs: cloudflare-purge-cache
-    steps:
-      - name: test
-        shell: bash
-        env:
-          TEST_KEY: ${{needs.cloudflare-purge-cache.outputs.test_key }}
-        run: |
-          echo "test_key=$TEST_KEY"
-
   purge-cache:
     name: Purge Cache
-    needs: test
     uses: ./.github/workflows/purge-cache2.yml
     with:
       environment: dev
     secrets:
-      test_key: ${{ needs.cloudflare-purge-cache.outputs.test_key }}
+      TEST_KEY: ${{ secrets.TEST_KEY }}

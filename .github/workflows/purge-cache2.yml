@@ -5,7 +5,7 @@ on:
         required: true
         type: string
     secrets:
-      test_key:
+      TEST_KEY:
         required: true
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           curl --location 'https://dev-cdn.nocnoc-internal.com/cache-purger' \
-          --header 'x-api-key: ${{ secrets.test_key }}' \
+          --header 'x-api-key: ${{ secrets.TEST_KEY }}' \
           --header 'Content-Type: application/json' \
           --data '{
               "pathPrefixList": ["mock/test-api/"]
