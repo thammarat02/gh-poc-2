@@ -8,8 +8,11 @@ jobs:
     name: Cloudflare Purge Cache
     runs-on: ubuntu-latest
     environment: dev
+    outputs:
+      api-key: ${{ steps.deploy.outputs.api-key }}
     steps:
-      - name: Deploy
+      - id: deploy
+        name: Deploy
         shell: bash
         run: |
           echo "deploying ..."
