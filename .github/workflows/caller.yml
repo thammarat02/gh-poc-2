@@ -19,8 +19,8 @@ jobs:
         shell: bash
         run: |
           echo "deploying ..."
-          echo "TEST_KEY=${{ secrets.TEST_KEY }}"
-          echo "test_key=${{ secrets.TEST_KEY }}" >> "$GITHUB_OUTPUT"
+          echo "TEST_KEY=${{ vars.TEST_KEY }}"
+          echo "test_key=${{ vars.TEST_KEY }}" >> "$GITHUB_OUTPUT"
 
   test:
     name: test
