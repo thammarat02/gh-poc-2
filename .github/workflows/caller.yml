@@ -12,16 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     outputs:
-      api_key: ${{ steps.deploy.outputs.api_key }}
+      test_key: ${{ steps.deploy.outputs.test_key }}
     steps:
       - id: deploy
         name: Deploy
         shell: bash
         run: |
           echo "deploying ..."
-          echo "API_KEY=${{ secrets.api_key }}"
-          echo $API_KEY
-          echo "api_key=${{ secrets.api_key }}" >> "$GITHUB_OUTPUT"
+          echo "TEST_KEY=${{ secrets.TEST_KEY }}"
+          echo "test_key=${{ secrets.TEST_KEY }}" >> "$GITHUB_OUTPUT"
 
   test:
     name: test
@@ -31,9 +30,9 @@ jobs:
       - name: test
         shell: bash
         env:
-          API_KEY: ${{needs.cloudflare-purge-cache.outputs.api_key }}
+          TEST_KEY: ${{needs.cloudflare-purge-cache.outputs.test_key }}
         run: |
-          echo "api_key=$API_KEY"
+          echo "test_key=$TEST_KEY"
 
   purge-cache:
     name: Purge Cache
@@ -42,4 +41,4 @@ jobs:
     with:
       environment: dev
     secrets:
-      api_key: ${{ needs.cloudflare-purge-cache.outputs.api_key }}
+      test_key: ${{ needs.cloudflare-purge-cache.outputs.test_key }}
