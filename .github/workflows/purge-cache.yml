@@ -1,0 +1,31 @@
+name: Purge cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-env:
+    name: Test step output
+    runs-on: ubuntu-latest
+    steps:
+      - id: step-1
+        name: step 1
+        shell: bash
+        run: |
+          string="release/1.0.0"
+
+          IFS='/'
+
+          read -ra arr <<<"$string"
+
+          length=${#arr[@]}
+
+          version="${arr[$length - 1]}"
+
+          echo "RELEASE_VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: step 2
+        shell: bash
+        run: |
+          echo "version=${{ env.RELEASE_VERSION }}"
+          echo "version=$RELEASE_VERSION"

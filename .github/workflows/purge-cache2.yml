@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  upload-to-s3-public-bucket:
+    name: Upload to s3 ${{ inputs.environment }} public bucket
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Purge cache
+        shell: bash
+        run: |
+          curl --location 'https://dev-cdn.nocnoc-internal.com/cache-purger' \
+          --header 'x-api-key: 63367908275a6afb50b5e220032184c0' \
+          --header 'Content-Type: application/json' \
+          --data '{
+              "pathPrefixList": ["mock/test-api/"]
+          }'

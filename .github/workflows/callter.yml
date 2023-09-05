@@ -1,0 +1,22 @@
+name: POC Cloudflare Purge Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloudflare-purge-cache:
+    name: Cloudflare Purge Cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        shell: bash
+        run: |
+          echo "deploying ..."
+
+
+  purge-cache:
+    name: Purge Cache
+    needs: cloudflare-purge-cache
+    uses: ./.github/workflows/purge-cache2.yml
+    with:
+      environment: qa
