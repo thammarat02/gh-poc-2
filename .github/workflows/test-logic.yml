@@ -1,0 +1,20 @@
+name: Test Logic
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-env:
+    name: Test step output
+    runs-on: ubuntu-latest
+    steps:
+      - id: step-1
+        name: step 1
+        shell: bash
+        run: |
+          value = "test"
+          if [[ "${value}" == "test" ]]; then
+            echo "true condition"
+          else
+            echo "false condition"
+          fi
