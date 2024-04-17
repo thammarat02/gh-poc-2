@@ -1,0 +1,22 @@
+name: Test command
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+
+jobs:
+  push-release:
+    name: Test command
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: POC command
+        shell: bash
+        run: |
+          mv .well-known/${{ github.event.inputs.environment }}-apple-app-site-association .well-known/apple-app-site-association
+          mv .well-known/${{ github.event.inputs.environment }}-assetlinks.json .well-known/assetlinks.json
+          ls .well-known
