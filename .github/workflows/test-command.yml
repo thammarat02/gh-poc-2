@@ -17,6 +17,12 @@ jobs:
       - name: POC command
         shell: bash
         run: |
-          mv .well-known/${{ github.event.inputs.environment }}-apple-app-site-association .well-known/apple-app-site-association
-          mv .well-known/${{ github.event.inputs.environment }}-assetlinks.json .well-known/assetlinks.json
+          if [ -f ".well-known/${{ github.event.inputs.environment }}-apple-app-site-association" ]; then
+            mv .well-known/${{ github.event.inputs.environment }}-apple-app-site-association .well-known/apple-app-site-association
+          fi
+
+          if [ -f ".well-known/${{ github.event.inputs.environment }}-assetlinks.json" ]; then
+            mv .well-known/${{ github.event.inputs.environment }}-assetlinks.json .well-known/assetlinks.json
+          fi
+
           ls .well-known
