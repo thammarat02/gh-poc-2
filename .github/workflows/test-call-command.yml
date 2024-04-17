@@ -23,3 +23,5 @@ jobs:
           if [ -f ".well-known/${{ inputs.environment }}-assetlinks.json" ]; then
             mv .well-known/${{ inputs.environment }}-assetlinks.json .well-known/assetlinks.json
           fi
+
+          ls .well-known
