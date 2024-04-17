@@ -18,14 +18,14 @@ jobs:
         run: |
           appleAppSiteAssociation=".well-known/${{ inputs.environment }}-apple-app-site-association"
 
-          if [ -f ".well-known/$appleAppSiteAssociation-apple-app-site-association" ]; then
-            mv .well-known/$appleAppSiteAssociation-apple-app-site-association .well-known/apple-app-site-association
+          if [ -f "$appleAppSiteAssociation" ]; then
+            mv $appleAppSiteAssociation .well-known/apple-app-site-association
           fi
 
           assetLinks=".well-known/${{ inputs.environment }}-assetlinks.json"
 
-          if [ -f ".well-known/$assetLinks-assetlinks.json" ]; then
-            mv .well-known/$assetLinks-assetlinks.json .well-known/assetlinks.json
+          if [ -f "$assetLinks" ]; then
+            mv $assetLinks .well-known/assetlinks.json
           fi
 
           ls .well-known
