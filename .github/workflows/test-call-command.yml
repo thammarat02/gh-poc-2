@@ -1,0 +1,25 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  upload-to-s3-public-bucket:
+    name: Upload to s3 ${{ inputs.environment }} public bucket
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Rename mobile associated files
+        shell: bash
+        run: |
+          if [ -f ".well-known/${{ inputs.environment }}-apple-app-site-association" ]; then
+            mv .well-known/${{ inputs.environment }}-apple-app-site-association .well-known/apple-app-site-association
+          fi
+
+          if [ -f ".well-known/${{ inputs.environment }}-assetlinks.json" ]; then
+            mv .well-known/${{ inputs.environment }}-assetlinks.json .well-known/assetlinks.json
+          fi

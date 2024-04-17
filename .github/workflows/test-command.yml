@@ -7,22 +7,8 @@ on:
         required: true
 
 jobs:
-  push-release:
-    name: Test command
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
-
-      - name: POC command
-        shell: bash
-        run: |
-          if [ -f ".well-known/${{ github.event.inputs.environment }}-apple-app-site-association" ]; then
-            mv .well-known/${{ github.event.inputs.environment }}-apple-app-site-association .well-known/apple-app-site-association
-          fi
-
-          if [ -f ".well-known/${{ github.event.inputs.environment }}-assetlinks.json" ]; then
-            mv .well-known/${{ github.event.inputs.environment }}-assetlinks.json .well-known/assetlinks.json
-          fi
-
-          ls .well-known
+  upload-to-s3-public-bucket:
+    name: Upload to s3 ${{ github.event.inputs.environment }} public bucket
+    uses: ./.github/workflows/test-call-command.yml
+    with:
+      environment: ${{ github.event.inputs.environment }}
