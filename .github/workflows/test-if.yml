@@ -1,0 +1,36 @@
+name: Test if
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        default: dev
+        description: Environment
+        type: choice
+        options:
+          - dev
+          - qa
+          - preprod
+          - prod
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+    name: Clear cache ${{ inputs.environment }} environment
+    steps:
+      - name: Purge cache
+        shell: bash
+        run: |
+          version=""
+          if [[ "${{inputs.environment}}" == "dev" ]]; then
+            version="development"
+          elif [[ "${{inputs.environment}}" == "qa" ]]; then
+            version="qa"
+          elif [[ "${{inputs.environment}}" == "preprod" ]]; then
+            version="preproduction"
+          elif [[ "${{inputs.environment}}" == "prod" ]]; then
+            version="production"
+          fi
+
+          echo s3-hosting-buyer-ui-${version}
