@@ -33,4 +33,15 @@ jobs:
             version="production"
           fi
 
-          echo s3-hosting-buyer-ui-${version}
+          curl --location --request PATCH 'https://dev-cdn.nocnoc-internal.com/env-patcher' \
+            --header 'x-api-key: b390f94f46c404e1f4bae34ee9ab02b1' \
+            --header 'Content-Type: application/json' \
+            --data '{
+              "workerName": "s3-hosting-buyer-ui-$version",
+              "envName": [
+                {
+                    "key": "APP_OBJECT_PREFIX",
+                    "value": "44ee0612f6900e90707ba0a5c5d0eadd6544007a"
+                }
+              ]
+            }'
