@@ -34,7 +34,7 @@ jobs:
             version="production"
           fi
 
-          echo "workerNameSuffix=$version" >> $GITHUB_ENV
+          echo "workerNameSuffix=$version" >> $GITHUB_OUTPUT
 
       - name: Purge cache
         shell: bash
