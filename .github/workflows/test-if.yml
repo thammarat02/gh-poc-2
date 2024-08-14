@@ -43,7 +43,7 @@ jobs:
             --header 'x-api-key: b390f94f46c404e1f4bae34ee9ab02b1' \
             --header 'Content-Type: application/json' \
             --data '{
-              "workerName": "s3-hosting-buyer-ui-xxx",
+              "workerName": "s3-hosting-buyer-ui-${{ steps.get-worker-name-suffix.outputs.workerNameSuffix }}",
               "envName": [
                 {
                     "key": "APP_OBJECT_PREFIX",
