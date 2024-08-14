@@ -51,3 +51,9 @@ jobs:
                 }
               ]
             }'
+
+      - name: Verify
+        shell: bash
+        run: |
+          curl --location 'https://dev-cdn.nocnoc-internal.com/env-patcher?name=s3-hosting-buyer-ui-${{ steps.get-worker-name-suffix.outputs.workerNameSuffix }}' \
+            --header 'x-api-key: b390f94f46c404e1f4bae34ee9ab02b1'
